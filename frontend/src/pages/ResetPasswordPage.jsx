@@ -31,6 +31,7 @@ const ResetPasswordPage = () => {
     }
 
   return (
+    <div className='flex items-center justify-center relative min-h-screen'> 
         <motion.div 
             initial={{opacity:0, y:-50, x:-10}}
             animate={{opacity:1, y:0}}
@@ -65,10 +66,10 @@ const ResetPasswordPage = () => {
                             <div className='flex justify-center'>
                             <motion.button 
                                 className='
-                                  mt-2 inline-flex px-7 py-3 text-2xl bg-blue-900 rounded-lg shadow-lg font-bold 
-                                 hover:from-blue-800 hover:to-blue-900 bg-gradient-to-r
-                                  focus:outline-none focus:ring-2 focus:ring-blue-500 
-                                  transition text-white focus:ring-offset-2 focus:ring-offset-gray-900'
+                                mt-2 inline-flex px-7 py-3 text-2xl bg-blue-900 rounded-lg shadow-lg font-bold 
+                                hover:from-blue-800 hover:to-blue-900 bg-gradient-to-r
+                                focus:outline-none focus:ring-2 focus:ring-blue-500 
+                                transition text-white focus:ring-offset-2 focus:ring-offset-gray-900'
                                 whileHover={{scale:1.05}}
                                 whileTap={{scale:0.95}}
                                 type='submit'
@@ -97,6 +98,7 @@ const ResetPasswordPage = () => {
             }
             
         </motion.div>
+    </div>
   )
 }
 

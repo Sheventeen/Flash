@@ -32,6 +32,9 @@ const SignupPage = () => {
   };
 
   return (
+
+
+    <div className='flex items-center justify-center relative min-h-screen'> 
     <motion.div 
     initial={{opacity:0, y:20}}
     animate={{opacity:1, y:0}}
@@ -101,6 +104,7 @@ const SignupPage = () => {
 
       </div>
     </motion.div>
+    </div>
   )
 }
 

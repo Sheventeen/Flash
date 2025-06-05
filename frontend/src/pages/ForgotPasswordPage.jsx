@@ -39,6 +39,7 @@ const ForgotPasswordPage = () => {
   }
 
   return (
+    <div className='flex items-center justify-center relative min-h-screen'> 
     <motion.div 
     initial={{opacity:0, y:-50, x:-10}}
     animate={{opacity:1, y:0}}
@@ -107,6 +108,7 @@ const ForgotPasswordPage = () => {
             </div>
 
     </motion.div>
+    </div>
   )
 }
 

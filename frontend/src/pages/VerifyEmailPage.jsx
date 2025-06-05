@@ -41,6 +41,7 @@ const VerifyEmailPage = () => {
     }
 
   return (
+    <div className='flex items-center justify-center relative min-h-screen'> 
     <motion.div initial={{opacity:0, y:-50, x:-10}}
     animate={{opacity:1, y:0}}
     transition={{duration:0.5}}
@@ -74,6 +75,7 @@ const VerifyEmailPage = () => {
             </form>
         </div>
     </motion.div>
+    </div>
   )
 }
 

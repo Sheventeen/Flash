@@ -40,9 +40,8 @@ function App() {
   console.log('user',user);
   return (
     
-      <div className='min-h-screen bg-[#1c1d22] flex items-center justify-center relative overflow-hidden border-1 border-amber-50 text-2xl text-amber-50 '>
+      <div className='min-h-screen bg-[#1c1d22] border-1 border-amber-50 text-2xl text-amber-50 '>
      
-
         <Routes>
           <Route path='/home' element={
               'home' 

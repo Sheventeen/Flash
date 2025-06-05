@@ -26,6 +26,7 @@ const LoginPage = () => {
   }
 
   return (
+    <div className='flex items-center justify-center relative min-h-screen'> 
     <motion.div
     initial={{opacity:0, y:-50, x:-10}}
     animate={{opacity:1, y:0}}
@@ -53,7 +54,7 @@ const LoginPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           eye={showPassword ? EyeOff : Eye}
           onEyeClick={() => setShowPassword(prev => !prev)}
-        />
+          />
 
         <div className='text-sm hover:underline'>
           
@@ -84,6 +85,7 @@ const LoginPage = () => {
         </p>
       </div>
     </motion.div>
+    </div>
   )
 }
 
