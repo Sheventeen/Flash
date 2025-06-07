@@ -1,14 +1,29 @@
-import React from 'react'
-import {motion} from 'framer-motion';
+import React, { useEffect, useState } from 'react'
+import {animate, motion} from 'framer-motion';
 import { useAuthStore } from '../store/authStore';
 import { Link, useNavigate } from 'react-router-dom';
 import { Loader, LogOut, User } from 'lucide-react';
 import Button from '../components/Button';
+import Flashcard from '../../../backend/models/FlashcardModel';
 
 
 const DashBoardPage = () => {
-    const {user, logout, isLoading} = useAuthStore(); 
+    const {user, logout, isLoading, getDecks} = useAuthStore();
+    const [isRotated, setIsRotated] = useState(false);
+    const [userDecks, setUserDecks] = useState([]);
     const navigate = useNavigate();
+
+      useEffect(() => {
+      const topics = user.decks.map( (deckObj) => deckObj.deck)
+      setUserDecks(topics)
+      
+      }, [user]);
+
+      // useEffect(() => {
+      // if (userDecks.length > 0 && userDecks[0].length > 0) {
+      // console.log('userDecks ', userDecks[0][0].front); 
+      // }
+      // }, [userDecks]);
 
     const handleLogOut = async(e) => {
       e.preventDefault();
@@ -19,6 +34,12 @@ const DashBoardPage = () => {
         console.log(error)
       }
     }
+
+    const handleFlipCard = (e) => {
+      setIsRotated(prev => !prev)
+
+    }
+
   return (
     <>
     <div className=' h-12 justify-end flex items-center px-5 space-x-5 sticky top-0' >
@@ -27,49 +48,46 @@ const DashBoardPage = () => {
     </div>
 
     {/* screen */}
-    <div className='flex items-center min-h-screen border-2 border-amber-300'> 
+    <div className='flex items-center min-h-screen border-2 border-amber-300 '> 
 
       <div className='border-r-emerald-500  w-1/12 border-2 flex flex-col min-h-screen items-center'>
         <Button name='-Search'/>
         <Button name='-Home'/>
         <Button name='-Create Deck'/>
         <Button name='-My Decks'/>
+        <Button name='-About' />
+        <Button name='-Help' />
       </div>
-      <div className=' w-11/12 border-2 flex min-h-screen justify-center items-center'>
 
-      <motion.div
-      initial={{opacity:0, y:-50, x:-10}}
-      animate={{opacity:1, y:0}}
-      transition={{duration:0.5}}
-      className='max-w-md w-full bg-[#00688f]/70 backdrop-filter backdrop-blur-xl rounded-md shadow-xl'>
-          <div className=' p-5'>
-              <h2 className='justify-center flex font-bold'>
-                  Dashboard Page
-              </h2>
-              
+      <div className=' w-11/12 border-2 border-red-600 flex flex-col min-h-screen items-center p-5'>
+      <div className='flex justify-center'>
+          <p className='justify-center flex items-center'>{user.decks[0]?.topic}</p>
+      </div>
 
-              <div className='m-3 justify-center bg-gray-900/60 rounded-md p-2 mb-2'>
-              
-              <p className='text-md'>Name: {user.firstName}</p>
-              <p className='text-md '>{user.lastName}</p>
-              <p className='text-md '>{user.email}</p>
-              </div>
-
-              <div className='m-3 justify-center bg-gray-900/60 rounded-md p-2 mb-2'>
-              <p className='text-md'> {user.lastLoginDate}</p>
-              <p className='text-md '>{user.firstName}</p>
-              <p className='text-md '>{}</p>
-              </div>
-              </div>
-              <div className='bg-gray-500 h-12 flex justify-center items-center' >
-                <p className='text-sm '>
-                  
-                  <Link onClick={handleLogOut} className='text-3xl hover:underline'>
-                    Logout!
-                  </Link>
-                </p>
-                </div>
-      </motion.div>
+      <div className='flex flex-1 justify-center items-center'>
+        <motion.div
+        onClick={() => {
+          handleFlipCard();
+          
+        }}
+        animate={{rotateY: isRotated ? 180 : 0}}
+        transition={{duration: 0.4}}
+        className='max-w-md w-full min-w-135 bg-[#00688f]/70 backdrop-filter backdrop-blur-xl 
+        rounded-md shadow-xl p-2 min-h-80 flex justify-center items-center hover:cursor-pointer'>
+                <div className='justify-center items-center flex flex-1 overflow-auto'>
+                    {!isRotated ? 
+                      <p className='text-md break-words whitespace-normal w-full text-center'>{userDecks[0]?.[1]?.front}</p>
+                      :
+                      <p className='text-md break-words whitespace-normal w-full text-center ' 
+                      style={{ transform: 'rotateY(180deg)' }}
+                      transition={{duration:0}}
+                      >
+                        
+                        {userDecks[0]?.[1]?.back}</p>
+                    }  
+                </div>        
+        </motion.div>
+        </div>
       </div>
     </div>
     </>

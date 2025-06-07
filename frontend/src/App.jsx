@@ -37,7 +37,7 @@ function App() {
     checkAuth()
   },[checkAuth])
 
-  console.log('user',user);
+  //console.log('user',user);
   return (
     
       <div className='min-h-screen bg-[#1c1d22] border-1 border-amber-50 text-2xl text-amber-50 '>

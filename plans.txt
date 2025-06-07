@@ -1,0 +1,4 @@
+So im thinking that i could make the decks element in a users collection
+stay in there.
+In order for someone to search for them if they are considered public, we will
+keep a reference to that deck and look up each time

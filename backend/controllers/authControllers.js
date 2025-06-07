@@ -4,6 +4,7 @@ import crypto from  'crypto';
 import { generateTokenAndSetCookie } from '../util/generateTokenAndSetCookie.js';
 import { sendVerificationEmailToNewUser } from '../mailtrap/emails.js';
 import { sendWelcomeEmailtoUser, sendForgotPasswordtoUser, sendResetPasswordSuccessEmail } from '../mailtrap/emails.js';
+import Flashcard from '../models/FlashcardModel.js';
 
 
 export const checkAuth = async (req, res) => {
@@ -41,11 +42,29 @@ export const signup = async (req, res) => {
         const hashedPassword = await bCryptjs.hash(password, 12);
         const verificationToken = Math.floor (10000000 + Math.random() * 90000000).toString();
 
+        const newDeck = [{
+                front: 'Beeba',
+                back: 'Singh'
+            },
+            {
+                front: 'Gidgi',
+                back: 'Widgi'
+            },
+            {
+                front: 'Do you wanna',
+                back: 'Eat'
+            },
+            {
+                front: 'Alley',
+                back: 'Pond?'
+            }
+        ]
         const newUser = new User({
             email,
             password: hashedPassword,
             lastName,
-            firstName, 
+            firstName,
+            decks: [{deck: newDeck, topic: "First Flash Deck", isPublic: false }],
             verificationToken, 
             verificationTokenExpiration: Date.now() + 24 * 60 * 60 * 1000 // 24 hour
         });

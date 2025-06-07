@@ -87,6 +87,14 @@ export const useAuthStore = create((set) => ({
             set({error:'error resetting password', isLoading:false})
             throw error;
         }
+    },
+    getDecks: async() => {
+        set({isLoading:true, error: null});
+        try {
+            
+        } catch (error) {
+            
+        }
     }
 }
 ))

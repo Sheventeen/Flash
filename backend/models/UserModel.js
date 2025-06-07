@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+import mongoose, { mongo } from 'mongoose';
+import Flashcard from './FlashcardModel.js';
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -18,6 +19,28 @@ const UserSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    decks:[{
+        topic: {
+        type:String, 
+        required: true
+    },
+        deck: 
+            [{
+                front: {
+                type:String,
+                required:true
+            },
+                back:{
+                type:String, 
+                required:true
+            }}
+        ],
+                isPublic: {
+                type:Boolean,
+                required:true
+            }
+    }],
+
     lastLoginDate: {
         type: Date,
         default: Date.now
