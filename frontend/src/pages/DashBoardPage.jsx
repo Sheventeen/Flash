@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import {animate, motion} from 'framer-motion';
 import { useAuthStore } from '../store/authStore';
 import { Link, useNavigate } from 'react-router-dom';
-import { Check, Loader, LogOut, Menu, Sidebar, Undo2, User, X } from 'lucide-react';
-import Button from '../components/Button';
+import { Check, Loader, LogOut, Menu, Undo2, User, X } from 'lucide-react';
+import SbButton from '../components/SbButton';
 import Flashcard from '../../../backend/models/FlashcardModel';
-
+import Button from '../components/Button';
+import Sidebar from '../components/Sidebar';
 
 const DashBoardPage = () => {
     const {user, logout, isLoading, getDecks} = useAuthStore();
@@ -13,7 +14,7 @@ const DashBoardPage = () => {
     const [userDecks, setUserDecks] = useState([]);
     const [randomDeck, setRandomDeck] = useState(-1);
     const [shuffledDeck, setShuffledDeck] = useState([]);
-    const [know, setKnow] = useState([]);
+    const [know, setKnow] = useState([]); 
     const [dontKnow, setDontKnow] = useState([]);
     const [sideBar, setSideBar] = useState(false);
     const navigate = useNavigate();
@@ -60,55 +61,41 @@ const DashBoardPage = () => {
 
   return (
     <div className='flex flex-col h-screen'>
-      <div className='border-2 h-16 items-center justify-end flex'>
+      <div className='h-16 items-center justify-end flex border-b-2 border-gray-500'>
           <div onClick={handleSideBar}>
             {!sideBar ? <Menu className='size-6 font-bold md:hidden flex' /> : <X className='size-6 font-bold md:hidden flex' />}        
           </div>
           <LogOut className='m-5 size-6 hover:cursor-pointer' onClick={handleLogOut} /> 
       </div>
-        <div className='flex flex-1 border-2 border-red-700'>
+        <div className='flex flex-1'>
 
-          <div className='border-2 md:flex flex-col w-60 hidden'>
-            <ul className='mt-5 flex flex-col items-center'>
-              <li className='p-3 border-b border-gray-700 hover:cursor-pointer hover:bg-gray-600'>Search</li>
-              <li className='p-3 border-b border-gray-700 hover:cursor-pointer hover:bg-gray-600'>Home</li>
-              <li className='p-3 border-b border-gray-700 hover:cursor-pointer hover:bg-gray-600'>Create Deck</li>
-              <li className='p-3 border-b border-gray-700 hover:cursor-pointer hover:bg-gray-600'>My Decks</li>
-              <li className='p-3 border-b border-gray-700 hover:cursor-pointer hover:bg-gray-600'>Contact</li>
-              <li className='p-3 border-b border-gray-700 hover:cursor-pointer hover:bg-gray-600'>Help</li>
-            </ul>
+          <div className=' md:flex flex-col w-60 hidden border-r-2 border-gray-500'>
+            <Sidebar />
           </div>
 
           <div className={sideBar ? 'fixed top-0 left-0 z-50 ease-in-out duration-400 md:hidden w-[60%] border-r h-full bg-[#1c1d22]' 
-          : ' fixed top-0 left-[-100%] '}>
-              <ul className='mt-5 flex flex-col items-center'>
-              <li className='p-3 border-b border-gray-700 hover:cursor-pointer hover:bg-gray-600'>Search</li>
-              <li className='p-3 border-b border-gray-700 hover:cursor-pointer hover:bg-gray-600'>Home</li>
-              <li className='p-3 border-b border-gray-700 hover:cursor-pointer hover:bg-gray-600'>Create Deck</li>
-              <li className='p-3 border-b border-gray-700 hover:cursor-pointer hover:bg-gray-600'>My Decks</li>
-              <li className='p-3 border-b border-gray-700 hover:cursor-pointer hover:bg-gray-600'>Contact</li>
-              <li className='p-3 border-b border-gray-700 hover:cursor-pointer hover:bg-gray-600'>Help</li>
-            </ul>
+                          : ' fixed top-0 left-[-100%] '}>
+              <Sidebar />
           </div>
 
-          <div className='border-purple-700 border-2 w-full flex flex-col items-center justify-center h-full '>
+          <div className='  w-full flex flex-col items-center justify-center h-full '>
+          <h1 className='text-5xl'>
+            Dashboard Page</h1>
+            <p className=' mt-10'>Deck Name</p>
             <motion.div 
-            className='max-w-md max-h-80 w-full bg-[#00688f] bg-opacity-50 backdrop-filter backdrop-blur-xl 
+            className='max-w-md max-h-80 w-full mt-5 bg-[#00688f] bg-opacity-50 backdrop-filter backdrop-blur-xl 
                        rounded-md shadow-xl overflow-auto  items-center flex flex-1 justify-center'>
               <p className='break-words whitespace-normal text-md w-full p-5 text-center'>
-                h12
+                アドが好き
               </p>
             </motion.div>
-            <div className='flex max-w-md w-full gap-16 justify-center pt-3 items-center mt-5'>
-              <button className='flex items-center justify-center border-4 border-gray-200 h-16 w-24 rounded-xl p-2'>
-                <Undo2 className='size-15' /> 
-              </button>
-              <button className='flex items-center justify-center border-4 border-gray-200 h-16 w-24 rounded-xl p-2 text-red-600'>
-                <X className='size-16' />                
-              </button>
-              <button className='flex items-center justify-center border-4 border-gray-200 h-16 w-24 rounded-xl p-2 text-green-600'>
-                  <Check className='size-16' />               
-              </button>
+            <div className='flex max-w-md w-full gap-16 justify-center pt-3 items-center mt-5 border-b pb-4 border-gray-400'>
+              <Button icon={Undo2} color='' size='size-15'
+              />
+              <Button icon={X} color='text-red-600'
+              />
+              <Button icon={Check} color='text-green-600'
+              />
             </div>
           </div>
         </div>
