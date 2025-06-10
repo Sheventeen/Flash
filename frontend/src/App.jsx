@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import DashBoardPage from './pages/DashBoardPage.jsx';
 import ForgotPasswordPage from './pages/ForgotPasswordPage.jsx';
 import ResetPasswordPage from './pages/ResetPasswordPage.jsx';
+import CreateDeckPage from './pages/CreateDeckPage.jsx';
 
 const ProtectedRoute = ({children}) => {
   const {isAuthenticated, user} = useAuthStore();
@@ -47,11 +48,6 @@ function App() {
               'home' 
           } />
 
-          <Route path='/dashboard' element={
-            <ProtectedRoute>
-              <DashBoardPage />
-            </ProtectedRoute>
-          } />
 
           <Route path='/signup' element={
             <RedirectAuthenticatedUser>
@@ -78,6 +74,18 @@ function App() {
             } />
             
             <Route path='/verify-email' element={<VerifyEmailPage />} />  
+            
+            <Route path='/dashboard' element={
+              <ProtectedRoute>
+                <DashBoardPage />
+              </ProtectedRoute>
+            } />
+
+            <Route path='/create-deck' element={
+              <ProtectedRoute>
+                <CreateDeckPage />
+              </ProtectedRoute>
+            } />
         </Routes>
       </div>
     
