@@ -42,7 +42,9 @@ export const signup = async (req, res) => {
         const hashedPassword = await bCryptjs.hash(password, 12);
         const verificationToken = Math.floor (10000000 + Math.random() * 90000000).toString();
 
-        const newDeck = [{
+        const newDeck = new Flashcard({
+            topic:'Sample Deck',
+            cards: [{
                 front: 'Beeba',
                 back: 'Singh'
             },
@@ -58,13 +60,14 @@ export const signup = async (req, res) => {
                 front: 'Alley',
                 back: 'Pond?'
             }
-        ]
+        ]})
+        await newDeck.save();
         const newUser = new User({
             email,
             password: hashedPassword,
             lastName,
             firstName,
-            decks: [{deck: newDeck, topic: "First Flash Deck", isPublic: false }],
+            decks: [{deck: newDeck._id, topic: "Sample Deck", isPublic: false }],
             verificationToken, 
             verificationTokenExpiration: Date.now() + 24 * 60 * 60 * 1000 // 24 hour
         });

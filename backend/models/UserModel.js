@@ -25,20 +25,15 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
         deck: 
-            [{
-                front: {
-                type:String,
-                required:true
+            {
+               type: mongoose.Schema.Types.ObjectId,
+                ref: "Flashcard",
             },
-                back:{
-                type:String, 
-                required:true
-            }}
-        ],
-                isPublic: {
-                type:Boolean,
-                required:true
-            }
+        isPublic: {
+            type: Boolean,
+            required: true
+        }
+              
     }],
 
     lastLoginDate: {
