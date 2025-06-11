@@ -36,9 +36,9 @@ function App() {
 
   useEffect(() => {
     checkAuth()
+    console.log('currently refreshing app.jsx and CHECKINGAUTH');
   },[checkAuth])
 
-  //console.log('user',user);
   return (
     
       <div className='min-h-screen bg-[#1c1d22] border-1 border-amber-50 text-2xl text-amber-50 '>
@@ -47,7 +47,6 @@ function App() {
           <Route path='/home' element={
               'home' 
           } />
-
 
           <Route path='/signup' element={
             <RedirectAuthenticatedUser>

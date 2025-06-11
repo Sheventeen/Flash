@@ -88,13 +88,5 @@ export const useAuthStore = create((set) => ({
             throw error;
         }
     },
-    getDecks: async() => {
-        set({isLoading:true, error: null});
-        try {
-            
-        } catch (error) {
-            
-        }
-    }
 }
 ))

@@ -10,6 +10,7 @@ import Sidebar from '../components/Sidebar';
 
 const DashBoardPage = () => {
     const {user, logout, isLoading, getDecks} = useAuthStore();
+    
     const [isRotated, setIsRotated] = useState(false);
     const [userDecks, setUserDecks] = useState([]);
     const [randomDeck, setRandomDeck] = useState(-1);

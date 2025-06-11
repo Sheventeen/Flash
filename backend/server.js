@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
+import flashcardRoutes from './routes/flashcardRoutes.js'
 import cookieParser from "cookie-parser";
 import { connectDb } from "./database/connectDb.js";
 import cors from 'cors';
@@ -18,7 +19,7 @@ app.use(cookieParser()); //allows us to extract a token
 
 
 app.use('/api/auth', authRoutes);
-
+ app.use('/api/decks', flashcardRoutes);
 app.listen(PORT, () => {
     connectDb()
     console.log('running ayyy');
