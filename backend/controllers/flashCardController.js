@@ -49,3 +49,20 @@ export const createDeck = async (req, res) => {
         res.status(400).json({success: false, message: error.message});
     }
 }
+
+export const editDeck = async (req, res) => {
+    const {deckId} = req.params;
+    try {
+        const deck = await Flashcard.findByIdAndUpdate(
+            deckId,
+            req.body,
+            { new: true, runValidators: true }
+        )
+        
+        console.log(deck);
+        res.status(200).json(deck);
+    } catch (error) {
+        console.log('error in edit Deck', error);
+        res.status(400).json({success: false, message: error.message});
+    }
+}

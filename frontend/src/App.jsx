@@ -39,6 +39,14 @@ function App() {
     console.log('currently refreshing app.jsx and CHECKINGAUTH');
   },[checkAuth])
 
+
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-amber-50 text-2xl">
+        Loading...
+      </div>
+    );
+  } 
   return (
     
       <div className='min-h-screen bg-[#1c1d22] border-1 border-amber-50 text-2xl text-amber-50 '>
