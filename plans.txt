@@ -1,6 +1,0 @@
-So im thinking that i could make the decks element in a users collection
-stay in there.
-In order for someone to search for them if they are considered public, we will
-keep a reference to that deck and look up each time
-
-rn just working on taking req.body from user and putting those values into a deck and also then adding the id of the deck into the users array
