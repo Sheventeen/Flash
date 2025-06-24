@@ -21,7 +21,6 @@ const LoginPage = () => {
       navigate('/dashboard');
     } catch (error) {
         console.log(error)
-
     }
   }
 

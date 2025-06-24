@@ -13,7 +13,7 @@ export const verifyAuth = (req, res, next) => {
         req.userId = decodedToken.userId;
         next();
     } catch (error) {
-        console.log('error in reset password');
+        console.log('error in verifyAuth');
         res.status(500).json({success: false, message: 'server error'})
     }
 }
