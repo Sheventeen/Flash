@@ -23,10 +23,10 @@ const MyDecksPage = () => {
   const handleCardChange = () => {
 
   }
-  const handleViewDeck = (e,i) => {
+  const handleViewDeck = (e,userId,deckId) => {
     e.preventDefault();
     try {
-      navigate(`/${i}/${user.firstName}`)
+      navigate(`/${user.firstName}/${deckId}`)
     } catch (error) {
       console.log(error)
     }
@@ -59,7 +59,7 @@ const MyDecksPage = () => {
                   <div 
                   key={i}
                   className='mb-5 border-2 rounded-xl p-5 mx-auto bg-blue-800/17 max-w-md min-h-40 hover:cursor-pointer'
-                  onClick={(e) => handleViewDeck(e, deck._id)}
+                  onClick={(e) => handleViewDeck(e, user._id, deck.deck)}
                   >
                   <div className='flex items-center justify-end mr-2'>
                     <h1 className=' flex text-2xl hover:cursor-default'>{i + 1} </h1>

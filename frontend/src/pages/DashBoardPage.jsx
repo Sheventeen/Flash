@@ -21,7 +21,7 @@ const DashBoardPage = () => {
     const navigate = useNavigate();
 
       useEffect(() => {
-       console.log('Page rerender seffect') 
+       //console.log('Page rerender seffect') 
       })
 
       useEffect(() => {
@@ -32,14 +32,14 @@ const DashBoardPage = () => {
        useEffect(() => {      
         setRandomDeck(Math.floor(Math.random() * userDecks.length));
         const deck = userDecks[randomDeck]; 
-        console.log('deck',deck);
+        //console.log('deck',deck);
 
         for(let i = randomDeck.length - 1;i > 0; i--){
           const j = Math.floor(Math.random() * (i + 1));
           [deck[i], deck[j]] = [deck[j], deck[i]]
         }
         setShuffledDeck(deck)
-        console.log('render ', shuffledDeck)
+        //console.log('render ', shuffledDeck)
       },[userDecks])
 
     const handleLogOut = async(e) => {

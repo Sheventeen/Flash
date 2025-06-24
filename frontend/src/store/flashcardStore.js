@@ -8,6 +8,7 @@ axios.defaults.withCredentials = true;
 
 export const useFlashcardStore = create((set) => ({
     decks: [],
+    deck: [],
 
     getDecks: async () => {
         set({isLoading:true, error:null});
@@ -16,7 +17,7 @@ export const useFlashcardStore = create((set) => ({
             set({decks:response.data.decks});
 
         } catch (error) {
-            set({error:error.response.data.message || 'error signing up', isLoading:false,})
+            set({error:error.response.data.message || 'error in getDeck', isLoading:false,})
             throw error;
         }
     },
@@ -27,9 +28,19 @@ export const useFlashcardStore = create((set) => ({
             useAuthStore.setState({user: response.data.user});
             set({decks: response.data.decks});
         } catch (error) {
-            set({error:error.response.data.message || 'error signing up', isLoading:false,})
+            set({error:error.response.data.message || 'createDeck', isLoading:false,})
             throw error;
         }
     
     },
+    viewDeck: async (deckId) => {
+        useAuthStore.setState({isLoading: true, error:null});
+        try {
+            const response = await axios.get(`${API_URL}/:userName/:deckId`, {deckId})
+            set({deck: response.data.deck});
+        } catch (error) {
+            set({error:error.response.data.message || 'viewDeck', isLoading:false,})
+            throw error;
+        }
+    }
 }))
