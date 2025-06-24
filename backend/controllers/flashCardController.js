@@ -21,6 +21,14 @@ export const getDecks = async (req, res) => {
     }
 
 }
+export const viewDeck = async (req, res) => {
+    try {
+        
+    } catch (error) {
+        console.log('error in viewDeck', error);
+        res.status(400).json({success: false, message: error.message});
+    }
+}
 export const createDeck = async (req, res) => {
     try {
         const user = await User.findById(req.userId);
@@ -49,7 +57,6 @@ export const createDeck = async (req, res) => {
         res.status(400).json({success: false, message: error.message});
     }
 }
-
 export const editDeck = async (req, res) => {
     const {deckId} = req.params;
     try {

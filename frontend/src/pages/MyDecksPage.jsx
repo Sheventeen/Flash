@@ -1,17 +1,21 @@
 import { LogOut, Menu, Trash2, X } from 'lucide-react'
 import React, { useState } from 'react'
 import Sidebar from '../components/Sidebar';
+import { useAuthStore } from '../store/authStore';
+import { useFlashcardStore } from '../store/flashcardStore';
+import { useNavigate } from 'react-router-dom';
 
 const MyDecksPage = () => {
 
+  const {user, logout, isLoading, getDecks} = useAuthStore();
+  const {deck, createDeck} = useFlashcardStore();
 
   const [sideBar, setSideBar] = useState(false);
-  const [myDecks, setMyDecks] = useState([{front: '', back: ''},{front: '', back: ''},{front: '', back: ''},{front: '', back: ''},{front: '', back: ''}]);
-
+  const [myDecks, setMyDecks] = useState([...user.decks]);
+  const navigate = useNavigate();
 
   const handleSideBar = () => {
     setSideBar(!sideBar);
-
   }
   const handleLogOut = () => {
 
@@ -19,6 +23,15 @@ const MyDecksPage = () => {
   const handleCardChange = () => {
 
   }
+  const handleViewDeck = (e,i) => {
+    e.preventDefault();
+    try {
+      navigate(`/${i}/${user.firstName}`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className='flex flex-col min-h-screen'>
        <div className='h-16 items-center justify-end flex border-b-2 border-gray-500'>
@@ -41,32 +54,23 @@ const MyDecksPage = () => {
               <h1>My Decks</h1>
             </div>
               <div className='border-2 border-pink-300'>
-                {myDecks.map((card, i) => (
+
+                {myDecks.map((deck, i) => (
                   <div 
                   key={i}
-                  className='mb-5 border-2 rounded-xl p-5 mx-auto bg-blue-800/17 max-w-md'
+                  className='mb-5 border-2 rounded-xl p-5 mx-auto bg-blue-800/17 max-w-md min-h-40 hover:cursor-pointer'
+                  onClick={(e) => handleViewDeck(e, deck._id)}
                   >
                   <div className='flex items-center justify-end mr-2'>
                     <h1 className=' flex text-2xl hover:cursor-default'>{i + 1} </h1>
                     <Trash2 
                     className='hover:cursor-pointer ml-3'
-                    // onClick={handleRemoveCard}
                     />
                   </div>
-                  <input
-                  className=' p-3 w-full h-16 border-b-2'
-                  type="text"
-                  placeholder='Front'
-                  value={card.front}
-                  onChange={(e) => handleCardChange(i, 'front', e.target.value)}
-                  />
-                  <input
-                  className=' p-3 w-full h-16'
-                  type="text"
-                  placeholder='Back'
-                  value={card.back}
-                  onChange={(e) => handleCardChange(i, 'back', e.target.value)}
-                  />
+                  <div className='text-center break-words'>
+                    {deck.topic}
+                  </div>
+
                   </div>
             ))}
               </div>

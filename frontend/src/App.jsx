@@ -10,6 +10,7 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage.jsx';
 import ResetPasswordPage from './pages/ResetPasswordPage.jsx';
 import CreateDeckPage from './pages/CreateDeckPage.jsx';
 import MyDecksPage from './pages/MyDecksPage.jsx';
+import StudyDeckPage from './pages/StudyDeckPage.jsx';
 
 const ProtectedRoute = ({children}) => {
   const {isAuthenticated, user} = useAuthStore();
@@ -97,6 +98,11 @@ function App() {
             <Route path='/my-decks' element={
               <ProtectedRoute>
                 <MyDecksPage />
+              </ProtectedRoute>
+            } />
+            <Route path='/:userName/:deckId' element={
+              <ProtectedRoute>
+                <StudyDeckPage />
               </ProtectedRoute>
             } />
         </Routes>
