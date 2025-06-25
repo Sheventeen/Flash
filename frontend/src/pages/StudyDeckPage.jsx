@@ -1,17 +1,22 @@
-import { LogOut, Menu, X } from 'lucide-react'
+import { Check, EditIcon, LogOut, Menu, Shuffle, Trash, Trash2, Undo2, X } from 'lucide-react'
 import React from 'react'
 import { useState } from 'react'
 import Sidebar from '../components/Sidebar';
 import { useFlashcardStore } from '../store/flashcardStore';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import Button from '../components/Button';
 
 const StudyDeckPage = () => {
 
-  const {deck, createDeck} = useFlashcardStore();
+  const {userName, deckId} = useParams();
+  const {deck, viewDeck, createDeck} = useFlashcardStore();
 
 
   const [currDeck, setCurrDeck] = useState([]);
   const [sideBar, setSideBar] = useState(false);
+  const [count, setCount] = useState(1);
+  const [flip, setFlip] = useState(false);
 
   const handleSideBar = () => {
     setSideBar(!sideBar);
@@ -19,14 +24,40 @@ const StudyDeckPage = () => {
   const handleLogOut = () => {
     
   }
+  const handleUndo = () => {
+    if (count > 0){
+      setCount(count - 1)
+    }
+  }
+  const handleKnowCard = () => {
+    setCount((count + 1) % 3)
+  }
+  const handleDontKnowCard = () => {
+    setCount((count + 1) % 3)
+  }
+  const handleCardFlip = () => {
+    setFlip(!flip);
+  }
 
   useEffect(() => {
-    console.log(deck)
-    console.log(deck.cards[0]?.front)
-    setCurrDeck(deck.cards)
-    console.log(currDeck)
+    viewDeck(deckId);
     console.log('on mount of study deck');
-  },[currDeck])
+  },[deckId])
+
+  useEffect(() => {
+    if(deck?.cards?.length){
+      let currIndex = deck.cards.length;
+      const shuffled = [...deck.cards]
+      while(currIndex != 0){
+        let randIndex = Math.floor(Math.random() * currIndex);
+        currIndex--;
+        [shuffled[currIndex], shuffled[randIndex]] = 
+        [shuffled[randIndex], shuffled[currIndex]];
+      }
+      setCurrDeck(shuffled);
+    }
+      console.log(currDeck);
+    },[deck])
 
   return (
     <div className='flex flex-col min-h-screen'>
@@ -36,8 +67,9 @@ const StudyDeckPage = () => {
           </div>
           <LogOut className='m-5 size-6 hover:cursor-pointer' onClick={handleLogOut} /> 
       </div>
+      
       <div className='flex flex-1'>
-        <div className=' md:flex flex-col w-60 hidden border-r-2 border-gray-500'>
+        <div className='md:flex flex-col w-60 hidden border-r-2 border-gray-500'>
             <Sidebar />
         </div>
 
@@ -46,16 +78,43 @@ const StudyDeckPage = () => {
               <Sidebar />
         </div>
         <div className='border-2 w-full border-blue-700 flex-col'>
-          <div className='flex p-5 text-4xl font-bold'>
-              <h1>My Decks</h1>
+          <div className='flex p-5 text-4xl font-bold justify-center'>
+              <h1>{deck?.topic}</h1>
           </div>
-          <div>
-          {}
+          {/* <div className='flex flex-col'> */}
+            <div className='border-2 max-h-full flex flex-col items-center'>
+              <div>
+                <h1>{count + 1}/{currDeck.length}</h1>
+              </div>
+              <div className='  max-w-md min-h-80 max-h-80 w-full mt-20 bg-[#00688f] 
+                                bg-opacity-50 backdrop-filter backdrop-blur-xl 
+                                rounded-md shadow-xl overflow-auto  items-center 
+                                flex flex-1 justify-center'
+                    onClick={handleCardFlip}>
+                {!flip ? currDeck[count]?.front 
+                        : currDeck[count]?.back}
+              </div>
+              <div className='flex max-w-md w-full gap-16 justify-center pt-3 items-center mt-5 border-2 pb-4 border-gray-400'>
+                <Button icon={Undo2} color='' size='size-15' onClick={handleUndo}
+                />
+                <Button icon={X} color='text-red-600 ' onClick={handleDontKnowCard}
+                />
+                <Button icon={Check} color='text-green-600' onClick={handleKnowCard}
+                />
+              </div>
+              <div className='flex max-w-md w-full gap-16 justify-center pt-3 items-center mt-5 border-2 pb-4 border-gray-400'>
+                <Button icon={Shuffle} color='' size='size-15'
+                />
+                <Button icon={Trash2} color='text-red-600'
+                />
+                <Button icon={EditIcon} color='text-green-600'
+                />
+              </div>
           </div>
+          {/* </div> */}
         </div>
       </div>
     </div>
   )
 }
-
 export default StudyDeckPage

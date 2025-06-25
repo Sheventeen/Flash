@@ -7,7 +7,7 @@ const API_URL = 'http://localhost:5000/api/decks';
 axios.defaults.withCredentials = true;
 
 export const useFlashcardStore = create((set) => ({
-    decks: [],
+    decks: null,
     deck:null,
 
     getDecks: async () => {

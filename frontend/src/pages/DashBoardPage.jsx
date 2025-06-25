@@ -79,7 +79,7 @@ const DashBoardPage = () => {
               <Sidebar />
           </div>
 
-          <div className='  w-full flex flex-col items-center justify-center h-full '>
+          <div className='w-full flex flex-col items-center justify-center h-full '>
           <h1 className='text-5xl'>
             Dashboard Page</h1>
             <p className=' mt-10'>Deck Name</p>
