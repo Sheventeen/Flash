@@ -8,7 +8,7 @@ axios.defaults.withCredentials = true;
 
 export const useFlashcardStore = create((set) => ({
     decks: [],
-    deck: [],
+    deck:null,
 
     getDecks: async () => {
         set({isLoading:true, error:null});
@@ -36,8 +36,9 @@ export const useFlashcardStore = create((set) => ({
     viewDeck: async (deckId) => {
         useAuthStore.setState({isLoading: true, error:null});
         try {
-            const response = await axios.get(`${API_URL}/:userName/:deckId`, {deckId})
-            set({deck: response.data.deck});
+            const response = await axios.get(`${API_URL}/${deckId}`, {deckId})
+            set({deck: response.data.chosenDeck});
+            useAuthStore.setState({isLoading: false});
         } catch (error) {
             set({error:error.response.data.message || 'viewDeck', isLoading:false,})
             throw error;

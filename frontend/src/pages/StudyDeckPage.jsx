@@ -3,11 +3,14 @@ import React from 'react'
 import { useState } from 'react'
 import Sidebar from '../components/Sidebar';
 import { useFlashcardStore } from '../store/flashcardStore';
+import { useEffect } from 'react';
 
 const StudyDeckPage = () => {
 
   const {deck, createDeck} = useFlashcardStore();
 
+
+  const [currDeck, setCurrDeck] = useState([]);
   const [sideBar, setSideBar] = useState(false);
 
   const handleSideBar = () => {
@@ -17,7 +20,13 @@ const StudyDeckPage = () => {
     
   }
 
-
+  useEffect(() => {
+    console.log(deck)
+    console.log(deck.cards[0]?.front)
+    setCurrDeck(deck.cards)
+    console.log(currDeck)
+    console.log('on mount of study deck');
+  },[currDeck])
 
   return (
     <div className='flex flex-col min-h-screen'>
@@ -41,11 +50,7 @@ const StudyDeckPage = () => {
               <h1>My Decks</h1>
           </div>
           <div>
-          {deck.map(() => (
-                  <div>
-                    <h1>hi</h1>
-                  </div>
-            ))}
+          {}
           </div>
         </div>
       </div>

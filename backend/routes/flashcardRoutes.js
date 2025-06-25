@@ -5,7 +5,7 @@ import { createDeck, deleteDeck, editDeck, getDecks, viewDeck } from '../control
 const router = express.Router();
 
 router.get('/',verifyAuth, getDecks);
-router.get('/:userName/:deckId',verifyAuth, viewDeck);
+router.get('/:deckId',verifyAuth, viewDeck);
 
 router.post('/create-deck',verifyAuth, createDeck);
 

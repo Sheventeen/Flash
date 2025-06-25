@@ -24,10 +24,10 @@ export const getDecks = async (req, res) => {
 export const viewDeck = async (req, res) => {
     const {deckId} = req.params;
     try {
-        const deck = await Flashcard.findById(deckId);
+        const chosenDeck = await Flashcard.findById(deckId);
         res.status(200).json({
             success:true,
-            deck
+            chosenDeck
         })
 
     } catch (error) {
@@ -81,7 +81,7 @@ export const editDeck = async (req, res) => {
 }
 
 export const deleteDeck = async (req, res) => {
-    const {deckId} = req.params;
+    const {deckId} = req.body;
     try {
         const user = await User.findById(req.userId);
         if(!user){

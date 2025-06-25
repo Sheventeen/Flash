@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const MyDecksPage = () => {
 
   const {user, logout, isLoading, getDecks} = useAuthStore();
-  const {deck, createDeck} = useFlashcardStore();
+  const {deck, createDeck, viewDeck} = useFlashcardStore();
 
   const [sideBar, setSideBar] = useState(false);
   const [myDecks, setMyDecks] = useState([...user.decks]);
@@ -23,9 +23,10 @@ const MyDecksPage = () => {
   const handleCardChange = () => {
 
   }
-  const handleViewDeck = (e,userId,deckId) => {
+  const handleViewDeck = async(e,userId,deckId) => {
     e.preventDefault();
     try {
+      await viewDeck(deckId)
       navigate(`/${user.firstName}/${deckId}`)
     } catch (error) {
       console.log(error)
