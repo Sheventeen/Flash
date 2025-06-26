@@ -36,12 +36,23 @@ export const useFlashcardStore = create((set) => ({
     viewDeck: async (deckId) => {
         useAuthStore.setState({isLoading: true, error:null});
         try {
-            const response = await axios.get(`${API_URL}/${deckId}`, {deckId})
+            const response = await axios.get(`${API_URL}/${deckId}`)
             set({deck: response.data.chosenDeck});
             useAuthStore.setState({isLoading: false});
         } catch (error) {
             set({error:error.response.data.message || 'viewDeck', isLoading:false,})
             throw error;
         }
-    }
+    },
+    deleteDeck: async(deckId) => {
+        useAuthStore.setState({isLoading:true, error:null});
+        try {
+            const response = await axios.delete(`${API_URL}/delete-deck`, {data: {deckId}})
+            useAuthStore.setState({message: response.data.message, isLoading: false, user:response.data.user});
+            set({deck: null})
+        } catch (error) {
+            set({error:error.response.data.message || 'deleteDeck', isLoading:false,})
+            throw error;
+        }
+    },
 }))

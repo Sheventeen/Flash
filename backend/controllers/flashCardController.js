@@ -97,7 +97,7 @@ export const deleteDeck = async (req, res) => {
         user.decks = user.decks.filter(d => d.deck.toString() !== deckId);
         await user.save();
 
-        res.status(200).json({message:'deck deleted'});
+        res.status(200).json({message:'deck deleted', user: user});
     } catch (error) {
         console.log('error in delete deck', error);
         res.status(400).json({success: false, message: error.message});

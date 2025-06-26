@@ -11,7 +11,7 @@ const StudyDeckPage = () => {
 
   const navigate = useNavigate();
   const {userName, deckId} = useParams();
-  const {deck, viewDeck, createDeck} = useFlashcardStore();
+  const {deck, viewDeck, createDeck, deleteDeck} = useFlashcardStore();
 
 
   const [currDeck, setCurrDeck] = useState([]);
@@ -34,11 +34,11 @@ const StudyDeckPage = () => {
     }
   }
   const handleKnowCard = () => {
-    setCount((count + 1) % 3)
+    setCount((count + 1) % currDeck.length)
   }
   const handleDontKnowCard = () => {
     setDontKnow(prevDontKnow => [...prevDontKnow, currDeck[count]])
-    setCount((count + 1) % 3)
+    setCount((count + 1) % currDeck.length)
   }
   const handleConfirmDelete = () => {
     setShowDelete(prev => !prev);
@@ -46,11 +46,14 @@ const StudyDeckPage = () => {
   const handleCardFlip = () => {
     setFlip(!flip);
   }
-  const handleDelete = async() => {
+  const handleDeleteDeck = async() => {
     try {
-
+      console.log(deckId)
+      await deleteDeck(deckId);
+      setCount((count + 1) % 3)
+      navigate(('/dashboard'))
     } catch (error) {
-      
+      console.log(error)
     }
   }
 
@@ -103,7 +106,7 @@ const StudyDeckPage = () => {
               <button className='border-2 rounded-2xl flex h-16 w-30 items-center justify-center' onClick={() => setShowDelete(prev => !prev)}>
                 KEEP
               </button>
-              <button className='border-2 rounded-2xl flex h-16 w-30 items-center justify-center'>
+              <button className='border-2 rounded-2xl flex h-16 w-30 items-center justify-center' onClick={handleDeleteDeck}>
                 DELETE
               </button>
             </div>
