@@ -44,6 +44,17 @@ export const useFlashcardStore = create((set) => ({
             throw error;
         }
     },
+    editDeck: async(deckId, topic, cards) => {
+        useAuthStore.setState({isLoading:true, error:null});
+        try {
+            const response = await axios.put(`${API_URL}/edit-deck/${deckId}`, {topic, cards})
+            useAuthStore.setState({message: response.data.message, isLoading: false, user:response.data.user});
+            set({deck: response.data.user.deck})
+        } catch (error) {
+            set({error:error.response.data.message || 'editDeck', isLoading:false,})
+            throw error;
+        }
+    },
     deleteDeck: async(deckId) => {
         useAuthStore.setState({isLoading:true, error:null});
         try {

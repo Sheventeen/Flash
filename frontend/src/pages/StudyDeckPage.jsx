@@ -46,6 +46,15 @@ const StudyDeckPage = () => {
   const handleCardFlip = () => {
     setFlip(!flip);
   }
+
+  const handleEditDeck = () => {
+    try {
+      navigate(`/edit-deck/${userName}/${deckId}`)
+    } catch (error) {
+      
+    }
+  }
+
   const handleDeleteDeck = async() => {
     try {
       console.log(deckId)
@@ -143,7 +152,7 @@ const StudyDeckPage = () => {
                 />
                 <Button icon={Trash2} color='text-red-600' onClick={handleConfirmDelete}
                 />
-                <Button icon={EditIcon} color='text-green-600'
+                <Button icon={EditIcon} color='text-green-600' onClick={handleEditDeck}
                 />
               </div>
           </div>

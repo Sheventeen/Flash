@@ -66,17 +66,34 @@ export const createDeck = async (req, res) => {
 export const editDeck = async (req, res) => {
     const {deckId} = req.params;
     try {
+        const user = await User.findById(req.userId);
+        if(!user){
+            return res.status(400).json({success: false, message: 'user not found'});
+        }
         const deck = await Flashcard.findByIdAndUpdate(
             deckId,
             req.body,
             { new: true, runValidators: true }
         )
+        for (let i = 0; i < user.decks.length; i++){
+            if (user.decks[i]?.deck.toString() === deckId.toString()){
+                user.decks[i].topic = deck.topic;
+            }
+        }
         await deck.save();
+        await user.save();
         console.log(deck);
-        res.status(200).json(deck);
+        res.status(200).json({
+            deck,
+            user:{
+                ...user._doc,
+                password: undefined
+            }});
     } catch (error) {
         console.log('error in edit Deck', error);
-        res.status(400).json({success: false, message: error.message});
+        res.status(400).json({
+            success: false, 
+            message: error.message});
     }
 }
 
@@ -97,7 +114,12 @@ export const deleteDeck = async (req, res) => {
         user.decks = user.decks.filter(d => d.deck.toString() !== deckId);
         await user.save();
 
-        res.status(200).json({message:'deck deleted', user: user});
+        res.status(200).json({
+            message:'deck deleted',
+             user:{
+                ...user._doc,
+                password: undefined
+            }});
     } catch (error) {
         console.log('error in delete deck', error);
         res.status(400).json({success: false, message: error.message});

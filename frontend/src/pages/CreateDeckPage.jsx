@@ -76,7 +76,7 @@ const CreateDeckPage = () => {
                 <Sidebar />
             </div>
               <div className='flex items-center flex-col border-2 w-full'>
-              <div className='flex my-[3%] font-bold text-3xl items-center justify-between border min-w-md p-3 sticky top-[10%] bg-[#1c1d22] rounded-2xl'>
+              <div className='flex my-[3%] font-bold text-3xl items-center justify-between border-2 max-w-md w-full p-3 sticky top-[10%] bg-[#1c1d22] rounded-2xl'>
                 <h1 className=''>
                   Create Deck
                 </h1>  
@@ -89,11 +89,11 @@ const CreateDeckPage = () => {
                  onClick={handleAddCard}
                  />
               </div>
-              <div className='min-w-md h-18 border-2 my-5 flex items-center rounded-md'>
+              <div className='max-w-md w-full h-18 border-2 my-5 flex items-center rounded-2xl'>
                 <input 
                 placeholder='Topic'
                 onChange={(e) => setTopic(e.target.value)}
-                className='h-12 ml-10'
+                className='h-12 ml-10 w-full'
                 />
               </div>
               <div>
@@ -107,7 +107,7 @@ const CreateDeckPage = () => {
                     <h1 className=' flex text-2xl hover:cursor-default'>{i + 1} </h1>
                     <Trash2 
                     className='hover:cursor-pointer ml-3'
-                    onClick={handleRemoveCard}
+                    onClick={() => handleRemoveCard(i)}
                     />
                   </div>
                   <input
