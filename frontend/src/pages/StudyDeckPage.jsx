@@ -107,7 +107,7 @@ const StudyDeckPage = () => {
         </div>
         {showDelete ? 
         <div className='w-full h-screen z-50 bg-black/35 flex justify-center items-center'>
-          <div className='flex flex-col items-center text-center h-80 w-md bg-[#00688f]/50 rounded-xl '>
+          <div className='flex flex-col items-center text-center h-80 max-w-md bg-[#00688f]/50 rounded-xl '>
             <h1 className='p-6'>
               Are you sure you want to delete this deck? You will not be able to reverse this action.
             </h1>
@@ -122,40 +122,40 @@ const StudyDeckPage = () => {
           </div>
         </div>
         :
-        <div className='border-2 w-full border-blue-700 flex-col'>
+        <div className='md:border-2 w-full md:border-blue-700 flex-col flex items-center mx-[3%] md:mx-0'>
           <div className='flex p-5 text-4xl font-bold justify-center'>
               <h1>{deck?.topic}</h1>
           </div>
           {/* <div className='flex flex-col'> */}
-            <div className='border-2 max-h-full flex flex-col items-center'>
+            
               <div>
                 <h1>{count + 1}/{currDeck.length}</h1>
               </div>
-              <div className='  max-w-md min-h-80 max-h-80 w-full mt-20 bg-[#00688f]/50 
-                                backdrop-filter backdrop-blur-xl 
-                                rounded-md shadow-xl overflow-auto items-center 
-                                flex flex-1 justify-center'
+              <div className='max-w-md w-full h-80 mt-15 bg-[#00688f]/50  
+                                rounded-md overflow-auto items-center 
+                                flex justify-center'
                                 onClick={handleCardFlip}>
                 {!flip ? currDeck[count]?.front 
                        : currDeck[count]?.back}
               </div>
-              <div className='flex max-w-md w-full gap-16 justify-center pt-3 items-center mt-5 border-2 pb-4 border-gray-400'>
-                <Button icon={Undo2} color='' size='size-15' onClick={handleUndo}
-                />
-                <Button icon={X} color='text-red-600' onClick={handleDontKnowCard}
-                />
-                <Button icon={Check} color='text-green-600' onClick={handleKnowCard}
-                />
+              <div className='max-w-md w-full'>
+                <div className='flex max-w-md justify-around pt-3 items-center mt-5 border-2 pb-4 border-gray-400'>
+                  <Button icon={Undo2} color='' size='size-15' onClick={handleUndo}
+                  />
+                  <Button icon={X} color='text-red-600' onClick={handleDontKnowCard}
+                  />
+                  <Button icon={Check} color='text-green-600' onClick={handleKnowCard}
+                  />
+                </div>
+                <div className='flex max-w-md justify-around pt-3 items-center mt-5 border-2 pb-4 border-gray-400'>
+                  <Button icon={Shuffle} color='' size='size-15'
+                  />
+                  <Button icon={Trash2} color='text-red-600' onClick={handleConfirmDelete}
+                  />
+                  <Button icon={EditIcon} color='text-green-600' onClick={handleEditDeck}
+                  />
+                </div>
               </div>
-              <div className='flex max-w-md w-full gap-16 justify-center pt-3 items-center mt-5 border-2 pb-4 border-gray-400'>
-                <Button icon={Shuffle} color='' size='size-15'
-                />
-                <Button icon={Trash2} color='text-red-600' onClick={handleConfirmDelete}
-                />
-                <Button icon={EditIcon} color='text-green-600' onClick={handleEditDeck}
-                />
-              </div>
-          </div>
           {/* </div> */}
         </div>
         } 
