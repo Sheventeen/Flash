@@ -4,7 +4,6 @@ import {User} from '../models/UserModel.js';
 // import { generateTokenAndSetCookie } from '../util/generateTokenAndSetCookie.js';
 import Flashcard from '../models/FlashcardModel.js';
 
-
 export const getDecks = async (req, res) => {
     try {
         const user = await User.findById(req.userId);

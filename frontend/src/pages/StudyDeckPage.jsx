@@ -51,7 +51,7 @@ const StudyDeckPage = () => {
     try {
       navigate(`/edit-deck/${userName}/${deckId}`)
     } catch (error) {
-      
+      console.log(error)
     }
   }
 
@@ -87,7 +87,7 @@ const StudyDeckPage = () => {
     },[deck])
 
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex flex-col min-h-screen mx-[3%] md:mx-0'>
         
       <div className='h-16 items-center justify-end flex border-b-2 border-gray-500'>
           <div onClick={handleSideBar}>
@@ -122,7 +122,7 @@ const StudyDeckPage = () => {
           </div>
         </div>
         :
-        <div className='md:border-2 w-full md:border-blue-700 flex-col flex items-center mx-[3%] md:mx-0'>
+        <div className='md:border-2 w-full md:border-blue-700 flex-col flex items-center '>
           <div className='flex p-5 text-4xl font-bold justify-center'>
               <h1>{deck?.topic}</h1>
           </div>
@@ -161,6 +161,5 @@ const StudyDeckPage = () => {
         } 
       </div>
 </div>
-)
-}
+)}
 export default StudyDeckPage

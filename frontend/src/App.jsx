@@ -12,6 +12,7 @@ import CreateDeckPage from './pages/CreateDeckPage.jsx';
 import MyDecksPage from './pages/MyDecksPage.jsx';
 import StudyDeckPage from './pages/StudyDeckPage.jsx';
 import EditDeckPage from './pages/EditDeckPage.jsx';
+import HomePage from './pages/HomePage.jsx';
 
 const ProtectedRoute = ({children}) => {
   const {isAuthenticated, user} = useAuthStore();
@@ -52,11 +53,13 @@ function App() {
   } 
   return (
     
-      <div className='min-h-screen bg-[#1c1d22] border-1 border-amber-50 text-2xl text-amber-50 '>
+      <div className='min-h-screen bg-[#1c1d22] border-amber-50 text-2xl text-amber-50 '>
      
         <Routes>
-          <Route path='/home' element={
-              'home' 
+          <Route path='/' element={
+              <RedirectAuthenticatedUser>
+                <HomePage/>
+              </RedirectAuthenticatedUser> 
           } />
 
           <Route path='/signup' element={

@@ -19,7 +19,7 @@ export const useAuthStore = create((set) => ({
             set({user:response.data.newUser, isAuthenticated: true, isLoading:false});
 
         } catch (error) {
-            set({error:error.response.data.message || 'error signing up', isLoading:false,})
+            set({error:error.response.data.message || 'error signing up', isLoading:false})
             throw error;
         }
     },

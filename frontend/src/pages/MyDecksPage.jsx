@@ -59,7 +59,7 @@ const MyDecksPage = () => {
                 {myDecks.map((deck, i) => (
                   <div 
                   key={i}
-                  className='mb-5 border-2 rounded-xl p-5 mx-auto bg-blue-800/17 max-w-md min-h-40 hover:cursor-pointer'
+                  className='mb-5 border-2 rounded-xl p-5 mx-auto bg-blue-800/17 max-w-md min-h-40 hover:cursor-pointer hover:bg-gray-200/10'
                   onClick={(e) => handleViewDeck(e, user._id, deck.deck)}
                   >
                   <div className='flex items-center justify-end mr-2'>
