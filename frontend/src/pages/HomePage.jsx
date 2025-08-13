@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Header from '../components/Header'
 import { ArrowBigRightDash, LogIn } from 'lucide-react'
 import Input from '../components/Input';
-
+//import { openAiResponse } from '../../../backend/util/openAiRequest';
 
 
 const HomePage = () => {
@@ -11,10 +11,21 @@ const HomePage = () => {
   const [flip, setFlip] = useState(false);
   const [count, setCount] = useState(0);
   const [showInput, setShowinput] = useState(true)
+  const [input, setInput] = useState('')
  
   const handleCardFlip = () => {
 
   }
+
+  const HandleOpenAi = async(e) => {
+      e.preventDefault()
+      try {
+        
+    } catch (error) {
+        
+    }
+  }
+
 
   return (
     <div className='border-2 border-amber-400 min-h-screen'>
@@ -37,8 +48,12 @@ const HomePage = () => {
             <div className='flex'>
                 <Input 
                 icon={ArrowBigRightDash}
+                placeholder={'Input'}
+                onChange={(e) => setInput(e.target.value)}
                 />
-                <button className='border-2 h-10 rounded-2xl p-3 items-center justify-center flex ml-3'>Send</button>
+                <button className='border-2 h-10 rounded-2xl p-3 items-center justify-center flex ml-3'
+                onClick={HandleOpenAi}
+                >Send</button>
             </div>
             <p className='text-sm font-bold max-w-80'>Enter text above in format such like 'Genki textbook chapter 5 vocabulary' or 'Basketball terminology'</p>
         </div>

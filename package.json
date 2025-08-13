@@ -20,7 +20,8 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mailtrap": "^4.1.0",
-    "mongoose": "^8.14.3"
+    "mongoose": "^8.14.3",
+    "openai": "^5.12.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",

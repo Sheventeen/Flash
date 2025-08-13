@@ -13,7 +13,4 @@ router.put('/edit-deck/:deckId',verifyAuth, editDeck);
 
 router.delete('/delete-deck',verifyAuth, deleteDeck);
 
-
 export default router;
-
-
