@@ -1,14 +1,17 @@
 import {create} from 'zustand';
 import axios from 'axios';
+
 import { getDecks } from '../../../backend/controllers/flashCardController';
 import { useAuthStore } from './authStore';
 
-const API_URL = 'http://localhost:5000/api/decks'; 
+const API_URL = 'http://localhost:5000/api/decks';
+const AI_API_URL = 'http://localhost:5000/api/flashcards';
 axios.defaults.withCredentials = true;
 
 export const useFlashcardStore = create((set) => ({
     decks: null,
     deck:null,
+    generatedDeck:null,
 
     getDecks: async () => {
         set({isLoading:true, error:null});
@@ -66,4 +69,15 @@ export const useFlashcardStore = create((set) => ({
             throw error;
         }
     },
+    generateDeck: async(input) => {
+        useAuthStore.setState({isLoading: true, error: null});
+        try {
+            const response = await axios.post(`${AI_API_URL}/`,{input});
+            useAuthStore.setState({isLoading: false});
+            set({generatedDeck: response.data.generatedDeck})
+        } catch (error) {
+            set({error:error.response.data.message || 'generateDeck', isLoading:false,})
+            throw error;
+        }
+    }
 }))

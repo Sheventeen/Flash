@@ -1,18 +1,25 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
-import { ArrowBigRightDash, LogIn } from 'lucide-react'
 import Input from '../components/Input';
+import { ArrowBigRightDash, LogIn } from 'lucide-react'
+import { useAuthStore } from '../store/authStore.js';
+import { useFlashcardStore } from '../store/flashcardStore.js';
 //import { openAiResponse } from '../../../backend/util/openAiRequest';
 
 
 const HomePage = () => {
+ 
+  const {generateDeck, generatedDeck} = useFlashcardStore();
+  const {isLoading, error} = useAuthStore();
+
 
   const [currDeck, setCurrDeck] = useState([{front: 'Enter A topic or Textbook name and chapter below', back: 'bye'}]);
   const [flip, setFlip] = useState(false);
   const [count, setCount] = useState(0);
   const [showInput, setShowinput] = useState(true)
   const [input, setInput] = useState('')
- 
+
+
   const handleCardFlip = () => {
 
   }
@@ -20,9 +27,13 @@ const HomePage = () => {
   const HandleOpenAi = async(e) => {
       e.preventDefault()
       try {
-        
+        console.log(input)
+        const res = await generateDeck(input);
+        console.log(generatedDeck)
+        let newDeck = generatedDeck;
+        setCurrDeck(newDeck);
     } catch (error) {
-        
+        console.log(error)
     }
   }
 
