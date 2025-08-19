@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Input from '../components/Input';
 import { ArrowBigRightDash, LogIn } from 'lucide-react'
@@ -21,22 +21,23 @@ const HomePage = () => {
 
 
   const handleCardFlip = () => {
-
+    setFlip((prev) => !prev);
   }
 
   const HandleOpenAi = async(e) => {
       e.preventDefault()
       try {
-        console.log(input)
-        const res = await generateDeck(input);
-        console.log(generatedDeck)
-        let newDeck = generatedDeck;
-        setCurrDeck(newDeck);
+        await generateDeck(input);
     } catch (error) {
         console.log(error)
     }
   }
-
+  
+  useEffect(() => {
+    if(generatedDeck){
+      setCurrDeck(generatedDeck)
+    }
+  },[generatedDeck])
 
   return (
     <div className='border-2 border-amber-400 min-h-screen'>

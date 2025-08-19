@@ -74,7 +74,7 @@ export const useFlashcardStore = create((set) => ({
         try {
             const response = await axios.post(`${AI_API_URL}/`,{input});
             useAuthStore.setState({isLoading: false});
-            set({generatedDeck: response.data.generatedDeck})
+            set({generatedDeck: response.data.text})
         } catch (error) {
             set({error:error.response.data.message || 'generateDeck', isLoading:false,})
             throw error;
