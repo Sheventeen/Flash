@@ -1,11 +1,12 @@
 import {create} from 'zustand';
 import axios from 'axios';
-
 import { getDecks } from '../../../backend/controllers/flashCardController';
 import { useAuthStore } from './authStore';
 
-const API_URL = 'http://localhost:5000/api/decks';
-const AI_API_URL = 'http://localhost:5000/api/flashcards';
+const API_URL = import.meta.env.MODE === 'development' ? 'http://localhost:5000/api/decks' : '/api/decks';
+const AI_API_URL = import.meta.env.MODE === 'development' ? 'http://localhost:5000/api/flashcards' : '/api/flashcards';
+
+
 axios.defaults.withCredentials = true;
 
 export const useFlashcardStore = create((set) => ({
