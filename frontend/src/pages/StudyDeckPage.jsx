@@ -6,13 +6,14 @@ import { useFlashcardStore } from '../store/flashcardStore';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../components/Button';
+import { useAuthStore } from '../store/authStore';
 
 const StudyDeckPage = () => {
 
   const navigate = useNavigate();
   const {userName, deckId} = useParams();
   const {deck, viewDeck, createDeck, deleteDeck} = useFlashcardStore();
-
+  const {logout, isLoading, error} = useAuthStore();
 
   const [currDeck, setCurrDeck] = useState([]);
   const [dontKnow, setDontKnow] = useState([]);
@@ -25,8 +26,14 @@ const StudyDeckPage = () => {
   const handleSideBar = () => {
     setSideBar(!sideBar);
   }
-  const handleLogOut = () => {
-    
+  const handleLogOut = async(e) => {
+    e.preventDefault();
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   }
   const handleUndo = () => {
     if (count > 0){

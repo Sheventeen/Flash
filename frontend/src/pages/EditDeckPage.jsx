@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useFlashcardStore } from '../store/flashcardStore';
 import Sidebar from '../components/Sidebar';
 import { LogOut, Menu, Plus, Save, Trash2, X } from 'lucide-react';
+import { useAuthStore } from '../store/authStore';
 
 const EditDeckPage = () => {
 
@@ -10,6 +11,7 @@ const EditDeckPage = () => {
 
   const {userName, deckId} = useParams();
   const {deck, viewDeck, createDeck, deleteDeck, editDeck} = useFlashcardStore();
+  const {logout, isLoading, error} = useAuthStore();
 
   const [cards, setCards] = useState([{front: '', back: ''}]);
   const [topic, setTopic] = useState('');
@@ -19,8 +21,14 @@ const EditDeckPage = () => {
   const handleSideBar = () => {
     setSideBar(!sideBar);
   }
-  const handleLogOut = () => {
-    
+  const handleLogOut = async(e) => {
+    e.preventDefault();
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   }
   const handleCardChange = (index, cardSide, value) => {
     const updatedCards = [...cards];

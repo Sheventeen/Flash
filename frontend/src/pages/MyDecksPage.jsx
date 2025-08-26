@@ -17,8 +17,14 @@ const MyDecksPage = () => {
   const handleSideBar = () => {
     setSideBar(!sideBar);
   }
-  const handleLogOut = () => {
-
+  const handleLogOut = async(e) => {
+    e.preventDefault();
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.log(error)
+    }
   }
   const handleCardChange = () => {
 

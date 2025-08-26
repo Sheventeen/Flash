@@ -54,7 +54,6 @@ const DashBoardPage = () => {
 
     const handleFlipCard = (e) => {
       setIsRotated(prev => !prev)
-
     }
     const handleSideBar = () => {
       setSideBar(!sideBar);
@@ -64,7 +63,7 @@ const DashBoardPage = () => {
     <div className='flex flex-col h-screen'>
       <div className='h-16 items-center justify-end flex border-b-2 border-gray-500'>
           <div onClick={handleSideBar}>
-            {!sideBar ? <Menu className='size-6 font-bold md:hidden flex' /> : <X className='size-6 font-bold md:hidden flex' />}        
+            {!sideBar ? <Menu className='size-6 font-bold md:hidden flex' /> : <X className='size-6 font-bold md:hidden flex' />}
           </div>
           <LogOut className='m-5 size-6 hover:cursor-pointer' onClick={handleLogOut} /> 
       </div>
