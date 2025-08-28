@@ -32,6 +32,12 @@ export const signup = async (req, res) => {
         if (!email || !password || !lastName || !firstName || !password2){
             throw new Error('Must enter all fields');
         }
+        if(!email.endsWith('@gmail.com')){
+            throw new Error('Please enter a valid gmail account');
+        }
+        if(password.length() < 6){
+            throw new Error('Please enter a password of greater than 5 length');
+        }
         const existingUser = await User.findOne({email})
         if (existingUser){
             return res.status(400).json({success: false, message: 'User already exists'});
