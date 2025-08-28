@@ -35,7 +35,7 @@ export const signup = async (req, res) => {
         if(!email.endsWith('@gmail.com')){
             throw new Error('Please enter a valid gmail account');
         }
-        if(password.length() < 6){
+        if(password.length < 6){
             throw new Error('Please enter a password of greater than 5 length');
         }
         const existingUser = await User.findOne({email})
@@ -80,7 +80,7 @@ export const signup = async (req, res) => {
         await newUser.save();
 
         generateTokenAndSetCookie(res, newUser._id);
-       // await sendVerificationEmailToNewUser(newUser.email, verificationToken);
+        await sendVerificationEmailToNewUser(newUser.email, verificationToken);
         
         res.status(201).json({
             success: true,
@@ -112,12 +112,11 @@ export const verifyEmail = async (req, res) => {
         user.verificationTokenExpiration = undefined;
         await user.save();
 
-        //await sendWelcomeEmailtoUser(user.email, user.firstName);
+        await sendWelcomeEmailtoUser(user.email, user.firstName);
         res.status(200).json({success: true, message: "welcome email successfull", user: {
             ...user._doc,
             password: undefined
         }})
-
 
     } catch (error) {
         console.log('error in verifying email', error);
@@ -185,7 +184,7 @@ export const forgotPassword = async (req, res) => {
         user.resetPasswordTokenExpiresAt = resetPasswordTokenExpiresAt;
         
         await user.save();
-        //await sendForgotPasswordtoUser(user.email, `${process.env.CLIENT_URL}/reset-password/${resetPasswordToken}`);
+        await sendForgotPasswordtoUser(user.email, `${process.env.CLIENT_URL}/reset-password/${resetPasswordToken}`);
 
         res.status(200).json({success: true, message: 'forgor email sent', resetPasswordToken: user.resetPasswordToken});
 
@@ -218,7 +217,7 @@ export const resetPassword = async (req, res) => {
         user.resetPasswordTokenExpiresAt = undefined;
 
         await user.save();
-        //await sendResetPasswordSuccessEmail(user.email);
+        await sendResetPasswordSuccessEmail(user.email);
 
         res.status(200).json({
             success: true,
@@ -228,6 +227,4 @@ export const resetPassword = async (req, res) => {
          console.log('error in reset password');
         res.status(400).json({success: false, message: error.message})
     }
-
-
 };
