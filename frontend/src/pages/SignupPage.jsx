@@ -88,7 +88,6 @@ const SignupPage = () => {
               disabled={isLoading}
               > 
               {isLoading ? <Loader className='w-6 h-6 animate-spin'/> :'Sign up'}
-              {console.log(isLoading)}
               </motion.button>
             </div>
           </form>

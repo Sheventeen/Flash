@@ -24,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "mailtrap": "^4.1.0",
     "mongoose": "^8.14.3",
+    "nodemailer": "^6.10.1",
     "openai": "^5.12.2"
   },
   "devDependencies": {

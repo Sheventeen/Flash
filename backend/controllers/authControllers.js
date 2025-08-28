@@ -2,10 +2,10 @@ import {User} from '../models/UserModel.js';
 import bCryptjs from 'bcryptjs';
 import crypto from  'crypto';
 import { generateTokenAndSetCookie } from '../util/generateTokenAndSetCookie.js';
-import { sendVerificationEmailToNewUser } from '../mailtrap/emails.js';
-import { sendWelcomeEmailtoUser, sendForgotPasswordtoUser, sendResetPasswordSuccessEmail } from '../mailtrap/emails.js';
+import { sendVerificationEmail } from '../email/gmailConfig.js';
+//import { sendVerificationEmailToNewUser } from '../mailtrap/emails.js';
+//import { sendWelcomeEmailtoUser, sendForgotPasswordtoUser, sendResetPasswordSuccessEmail } from '../mailtrap/emails.js';
 import Flashcard from '../models/FlashcardModel.js';
-
 
 export const checkAuth = async (req, res) => {
     try {
@@ -80,7 +80,8 @@ export const signup = async (req, res) => {
         await newUser.save();
 
         generateTokenAndSetCookie(res, newUser._id);
-        await sendVerificationEmailToNewUser(newUser.email, verificationToken);
+        await sendVerificationEmail(email,verificationToken);
+        //await sendVerificationEmailToNewUser(newUser.email, verificationToken);
         
         res.status(201).json({
             success: true,
@@ -112,7 +113,7 @@ export const verifyEmail = async (req, res) => {
         user.verificationTokenExpiration = undefined;
         await user.save();
 
-        await sendWelcomeEmailtoUser(user.email, user.firstName);
+        //await sendWelcomeEmailtoUser(user.email, user.firstName);
         res.status(200).json({success: true, message: "welcome email successfull", user: {
             ...user._doc,
             password: undefined
@@ -184,7 +185,7 @@ export const forgotPassword = async (req, res) => {
         user.resetPasswordTokenExpiresAt = resetPasswordTokenExpiresAt;
         
         await user.save();
-        await sendForgotPasswordtoUser(user.email, `${process.env.CLIENT_URL}/reset-password/${resetPasswordToken}`);
+        //await sendForgotPasswordtoUser(user.email, `${process.env.CLIENT_URL}/reset-password/${resetPasswordToken}`);
 
         res.status(200).json({success: true, message: 'forgor email sent', resetPasswordToken: user.resetPasswordToken});
 
@@ -217,7 +218,7 @@ export const resetPassword = async (req, res) => {
         user.resetPasswordTokenExpiresAt = undefined;
 
         await user.save();
-        await sendResetPasswordSuccessEmail(user.email);
+        //await sendResetPasswordSuccessEmail(user.email);
 
         res.status(200).json({
             success: true,
