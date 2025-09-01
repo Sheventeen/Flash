@@ -1,5 +1,6 @@
 import React from 'react'
 
+//  button component that we use for submitting
 const Button = ({icon: Icon, color = '', size = 'size-16', onClick}) => {
   return (
     <button

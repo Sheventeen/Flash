@@ -1,6 +1,7 @@
 import {User} from '../models/UserModel.js';
 import Flashcard from '../models/FlashcardModel.js';
 
+//  gets our decks from database of the user
 export const getDecks = async (req, res) => {
     try {
         const user = await User.findById(req.userId);
@@ -17,6 +18,7 @@ export const getDecks = async (req, res) => {
     }
 
 }
+//  pulls up the selected deck that user chose and sends to user
 export const viewDeck = async (req, res) => {
     const {deckId} = req.params;
     try {
@@ -31,6 +33,7 @@ export const viewDeck = async (req, res) => {
         res.status(400).json({success: false, message: error.message});
     }
 }
+//  creates a deck for the user and saves it into their db
 export const createDeck = async (req, res) => {
     try {
         const user = await User.findById(req.userId);
@@ -59,6 +62,7 @@ export const createDeck = async (req, res) => {
         res.status(400).json({success: false, message: error.message});
     }
 }
+//  edits a selected deck from a user and saves it to their db
 export const editDeck = async (req, res) => {
     const {deckId} = req.params;
     try {
@@ -92,7 +96,7 @@ export const editDeck = async (req, res) => {
             message: error.message});
     }
 }
-
+//  deletes a users deck
 export const deleteDeck = async (req, res) => {
     const {deckId} = req.body;
     try {

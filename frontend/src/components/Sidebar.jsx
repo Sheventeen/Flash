@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
- 
+
+//  generates our sidebar to be used during page navigations
 const Sidebar = () => {
 
     const navigate = useNavigate();

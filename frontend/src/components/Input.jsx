@@ -1,5 +1,6 @@
 import React from 'react'
 
+//  input component used mainly in taking user arguments
 const Input = ({icon:Icon,eye:Eye, onEyeClick, ...props}) => {
   return (
     <div className='relative mb-6'>

@@ -1,6 +1,7 @@
 import mongoose, { mongo } from 'mongoose';
 import Flashcard from './FlashcardModel.js';
 
+//  user schema in how we store in out database
 const UserSchema = new mongoose.Schema({
     email: {
         type: String,

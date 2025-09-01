@@ -6,7 +6,10 @@ import { sendVerificationEmail } from '../email/gmailConfig.js';
 //import { sendVerificationEmailToNewUser } from '../mailtrap/emails.js';
 //import { sendWelcomeEmailtoUser, sendForgotPasswordtoUser, sendResetPasswordSuccessEmail } from '../mailtrap/emails.js';
 import Flashcard from '../models/FlashcardModel.js';
+//  below are functions used to be called by client => authStore => server => router => here: to make api calls
 
+
+//  checks whether or not the token in our client exists
 export const checkAuth = async (req, res) => {
     try {
         const user = await User.findById(req.userId);
@@ -25,7 +28,7 @@ export const checkAuth = async (req, res) => {
         res.status(400).json({success: false, message: error.message});
     }
 };
-
+//  checks signup is vald
 export const signup = async (req, res) => {
     const {email, password, password2, lastName, firstName} = req.body;
     try {
@@ -78,7 +81,7 @@ export const signup = async (req, res) => {
             verificationTokenExpiration: Date.now() + 24 * 60 * 60 * 1000 // 24 hour
         });
         await newUser.save();
-
+        //  creates a JWT token for user to maintain their session then following line sends verification email
         generateTokenAndSetCookie(res, newUser._id);
         await sendVerificationEmail(email,verificationToken);
         //await sendVerificationEmailToNewUser(newUser.email, verificationToken);
@@ -96,7 +99,7 @@ export const signup = async (req, res) => {
         res.status(400).json({success: false, message: error.message});
     }
 };
-
+//  checks verifcation code was valid
 export const verifyEmail = async (req, res) => {
     const {code} = req.body;
     try {
@@ -125,7 +128,7 @@ export const verifyEmail = async (req, res) => {
     }
 
 };
-
+//  checks login was valid
 export const login = async (req, res) => {
     const {email, password} = req.body
 
@@ -161,7 +164,7 @@ export const login = async (req, res) => {
     }
 
 };
-
+//  checks logout was valid
 export const logout = async (req, res) => {
     res.clearCookie('token');
     res.status(200).json({success: true, message: 'Successful logout'});
@@ -194,7 +197,7 @@ export const forgotPassword = async (req, res) => {
         res.status(400).json({success: false, message: error.message})
     }
 };
-
+//  checks resetting of password was valid
 export const resetPassword = async (req, res) => { 
     
     try {

@@ -2,11 +2,11 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
 dotenv.config();
-
+//  hidden enviroment variables (shhhhhh.. dont tell anyone :) )
 const GMAIL = process.env.GMAIL;
 const GMAIL_PASSWORD = process.env.GMAIL_PASS;
 
-
+//  transporter object used to create emails from a spectific gmail account to be used for functionallity
 const transporter = nodemailer.createTransport({
     service:'gmail',
     auth: {
@@ -14,11 +14,9 @@ const transporter = nodemailer.createTransport({
         pass: GMAIL_PASSWORD
     }
 });
-
-
+//  sends the user a verification email upon signup
 export const sendVerificationEmail = async(to, verificationCode) => {
 try {
-    //console.log(GMAIL + ' ' + GMAIL_PASSWORD);
     await transporter.sendMail({
         from: `"FlashApple" <${GMAIL}>`,
         to,

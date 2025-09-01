@@ -2,7 +2,7 @@ import express from 'express';
 import { verifyAuth } from '../middleware/verifyAuth.js';
 import { signup, login, logout, verifyEmail, forgotPassword, resetPassword, checkAuth } from '../controllers/authControllers.js';
 
-
+//  creates a router for us to export and use in our server
 const router = express.Router();
 
 router.get('/check-auth', verifyAuth, checkAuth);
