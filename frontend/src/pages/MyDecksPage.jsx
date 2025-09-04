@@ -56,11 +56,11 @@ const MyDecksPage = () => {
                           : ' fixed top-0 left-[-100%] '}>
               <Sidebar />
           </div>
-          <div className='border-2 w-full border-blue-700 flex-col'>
-            <div className='flex p-5 text-4xl font-bold'>
+          <div className='w-full flex-col'>
+            <div className='flex p-5 text-4xl font-bold items-center justify-center mb-24'>
               <h1>My Decks</h1>
             </div>
-              <div className='border-2 border-pink-300'>
+              <div className=''>
 
                 {myDecks.map((deck, i) => (
                   <div 

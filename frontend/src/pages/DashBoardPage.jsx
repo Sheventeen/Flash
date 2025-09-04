@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {animate, motion} from 'framer-motion';
 import { useAuthStore } from '../store/authStore';
 import { Link, useNavigate } from 'react-router-dom';
-import { Check, Loader, LogOut, Menu, Undo2, User, X } from 'lucide-react';
-import SbButton from '../components/SbButton';
-import Flashcard from '../../../backend/models/FlashcardModel';
+import { Check, Loader, LogOut, Menu, Undo2, X } from 'lucide-react';
 import Button from '../components/Button';
 import Sidebar from '../components/Sidebar';
 
@@ -83,7 +81,7 @@ const DashBoardPage = () => {
             Dashboard Page</h1>
             <p className=' mt-10'>Deck Name</p>
             <motion.div 
-            className='max-w-md max-h-80 w-full mt-5 bg-[#00688f] bg-opacity-50 backdrop-filter backdrop-blur-xl 
+            className='max-w-md max-h-80 w-full mt-5 bg-[#00688f]/50 backdrop-filter backdrop-blur-xl 
                        rounded-md shadow-xl overflow-auto  items-center flex flex-1 justify-center'>
               <p className='break-words whitespace-normal text-md w-full p-5 text-center'>
                 アドが好き

@@ -75,7 +75,7 @@ const CreateDeckPage = () => {
                             : ' fixed top-0 left-[-100%] '}>
                 <Sidebar />
             </div>
-              <div className='flex items-center flex-col border-2 w-full'>
+              <div className='flex items-center flex-col w-full'>
               <div className='flex my-[3%] font-bold text-3xl items-center justify-between border-2 max-w-md w-full p-3 sticky top-[10%] bg-[#1c1d22] rounded-2xl'>
                 <h1 className=''>
                   Create Deck

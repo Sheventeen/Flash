@@ -77,9 +77,10 @@ const LoginPage = () => {
       </div>
       <div className='bg-gray-500 h-12 flex justify-center items-center' >
         <p className='text-sm '>
-          Don't Have an Account?{'   '}
+          <Link to='/' className='hover:underline' >Home</Link>
+          {' '}| Don't Have an Account?{'   '}
           <Link to='/signup' className='text-sm hover:underline'>
-            Sign Up!
+            Sign Up!{' '}
           </Link>
         </p>
       </div>

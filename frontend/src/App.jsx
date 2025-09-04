@@ -13,6 +13,7 @@ import MyDecksPage from './pages/MyDecksPage.jsx';
 import StudyDeckPage from './pages/StudyDeckPage.jsx';
 import EditDeckPage from './pages/EditDeckPage.jsx';
 import HomePage from './pages/HomePage.jsx';
+import HelpPage from './pages/HelpPage.jsx';
 
 const ProtectedRoute = ({children}) => {
   const {isAuthenticated, user} = useAuthStore();
@@ -73,11 +74,14 @@ function App() {
               <LoginPage/>
             </RedirectAuthenticatedUser>} />  
 
-
           <Route path='/forgot-password' element={
             <RedirectAuthenticatedUser>
               <ForgotPasswordPage /> 
             </RedirectAuthenticatedUser>
+            } />
+
+            <Route path='/help' element={
+                <HelpPage />
             } />
 
             <Route path='/reset-password/:resetToken' element={

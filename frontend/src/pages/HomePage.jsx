@@ -41,6 +41,14 @@ const HomePage = () => {
       console.log(error)
     }
   }
+  const handleHelp = (e) => {
+    e.preventDefault();
+    try {
+      navigate('/help');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleCardFlip = () => {
     setFlip((prev) => !prev);
@@ -65,20 +73,21 @@ const HomePage = () => {
   },[generatedDeck])
 
   return (
-    <div className='border-2 border-amber-400 min-h-screen'>
-        <div className='h-16 border-2 justify-end items-center flex'>
+    <div className='min-h-screen'>
+        <div className='h-16 border-b-1 justify-end items-center flex'>
 
         <p className='p-1 border-2 border-gray-100 m-2 rounded-xl text-center font-sans hover:bg-blue-600/40 hover:cursor-pointer' 
             onClick={handleLogin}>Login</p>
         <p className='p-1 border-2 border-gray-100 m-2 rounded-xl text-center font-sans hover:bg-blue-600/40 hover:cursor-pointer'
             onClick={handleSignUp} >Signup!</p>
-        <p className='p-1 border-2 border-gray-100 m-2 mr-5 rounded-xl text-center font-sans hover:bg-blue-600/40 hover:cursor-pointer' >Help</p>
+        <p className='p-1 border-2 border-gray-100 m-2 mr-5 rounded-xl text-center font-sans hover:bg-blue-600/40 hover:cursor-pointer' 
+            onClick={handleHelp}>Help</p>
         </div>
 
-        <div className='flex border-2 justify-center'>
+        <div className='flex justify-center'>
             <h2 className='flex m-12 text-3xl font-bold'>Create your Deck</h2>
         </div>
-        <div className='flex flex-col justify-center border-2 items-center text-center'>
+        <div className='flex flex-col justify-center items-center text-center'>
             <div className='max-w-md w-full h-80 my-15 bg-[#00688f]/50  
                                     rounded-md overflow-auto items-center 
                                     flex justify-center'
