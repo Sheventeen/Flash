@@ -1,29 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Input from '../components/Input';
-import { ArrowBigRightDash, LogIn, Menu, X } from 'lucide-react'
+import { ArrowBigRightDash, ArrowLeft, ArrowRight, LogIn, Menu, Undo2, X } from 'lucide-react'
 import { useAuthStore } from '../store/authStore.js';
 import { useFlashcardStore } from '../store/flashcardStore.js';
 import Sidebar from '../components/Sidebar.jsx';
 //import { openAiResponse } from '../../../backend/util/openAiRequest';
 import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button.jsx';
 
 const HomePage = () => {
  
-
   const navigate = useNavigate();
   const {generateDeck, generatedDeck} = useFlashcardStore();
   const {isLoading, error} = useAuthStore();
 
-
-  const [currDeck, setCurrDeck] = useState([{front: 'Enter A topic or Textbook name and chapter below', back: 'bye'}]);
+  const [topic, setTopic] = useState('Create your deku');
+  const [currDeck, setCurrDeck] = useState([{front: 'Enter A tccopic or Textbook name and chapter below', back: 'Enter A topic or Textbook name and chapter below'}, {front: 'hi', back: 'bye'}]);
   const [flip, setFlip] = useState(false);
   const [count, setCount] = useState(0);
   const [showInput, setShowinput] = useState(true)
   const [input, setInput] = useState('')
   const [sideBar, setSideBar] = useState(false)
-
-
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -56,6 +54,20 @@ const HomePage = () => {
   const handleSideBar = () => {
     setSideBar((prev) => !prev);
   }
+  const handleLeft = () => {
+    if(count > 0 ){
+      setCount(prev => prev - 1);
+      setFlip(false);
+    }
+
+  }
+  const handleRight = () => {
+    if(count < currDeck.length - 1){
+      setCount(prev => prev + 1);
+      setFlip(false);
+
+    }
+  }
 
   const HandleOpenAi = async(e) => {
       e.preventDefault()
@@ -85,25 +97,38 @@ const HomePage = () => {
         </div>
 
         <div className='flex justify-center'>
-            <h2 className='flex m-12 text-3xl font-bold'>Create your Deck</h2>
+            <h2 className='flex m-4 text-3xl font-bold'>{topic}</h2>
         </div>
         <div className='flex flex-col justify-center items-center text-center'>
-            <div className='max-w-md w-full h-80 my-15 bg-[#00688f]/50  
+            <div className='max-w-md w-full h-80 mt-1 bg-[#00688f]/50  
                                     rounded-md overflow-auto items-center 
                                     flex justify-center'
                                     onClick={handleCardFlip}>
                     {!flip ? currDeck[count]?.front 
                         : currDeck[count]?.back}
             </div>
-            <div className='flex'>
+            <div className='flex flex-col'>
+                <div className='flex max-w-md justify-around pt-3 items-center my-3 pb-2'>
+                  <Button icon={ArrowLeft} color='text-red-600' onClick={handleLeft}
+                  />
+                  <Button icon={ArrowRight} color='text-green-600' onClick={handleRight}
+                  />
+                  <div className='text-sm'>
+                      {count + 1}/{currDeck.length}
+                  </div>
+                  <button className='border-2 h-10 rounded-2xl p-3 items-center justify-center flex ml-3 hover:cursor-pointer hover:bg-blue-600/40'
+                onClick={HandleOpenAi}
+                >Generate Deck</button>
+                </div>
                 <Input 
                 icon={ArrowBigRightDash}
                 placeholder={'Input'}
                 onChange={(e) => setInput(e.target.value)}
                 />
-                <button className='border-2 h-10 rounded-2xl p-3 items-center justify-center flex ml-3'
+                <p className='text-sm'>Generations should take about 20-45 seconds</p>
+                {/* <button className='border-2 h-7 rounded-2xl p-3 items-center justify-center flex ml-3 hover:cursor-pointer hover:bg-blue-600/40'
                 onClick={HandleOpenAi}
-                >Send</button>
+                >Generate Deck</button> */}
             </div>
             <p className='text-sm font-bold max-w-80'>Enter text above in format such like 'Genki textbook chapter 5 vocabulary' or 'Basketball terminology'</p>
         </div>
