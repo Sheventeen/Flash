@@ -10,8 +10,9 @@ const AI_API_URL = import.meta.env.MODE === 'development' ? 'http://localhost:50
 axios.defaults.withCredentials = true;
 
 export const useFlashcardStore = create((set) => ({
-    decks: null,
+    decks:null,
     deck:null,
+    topic: null,
     generatedDeck:null,
 
     getDecks: async () => {
@@ -75,10 +76,13 @@ export const useFlashcardStore = create((set) => ({
         try {
             const response = await axios.post(`${AI_API_URL}/`,{input});
             useAuthStore.setState({isLoading: false});
-            set({generatedDeck: response.data.text})
+            set({generatedDeck: response.data.text, topic: input})
         } catch (error) {
             set({error:error.response.data.message || 'generateDeck', isLoading:false,})
             throw error;
         }
+    },
+    resetGeneratedDeck: () => {
+        set({generatedDeck: null});
     }
 }))

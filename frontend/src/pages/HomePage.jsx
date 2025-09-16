@@ -68,7 +68,6 @@ const HomePage = () => {
     if(count < currDeck.length - 1){
       setCount(prev => prev + 1);
       setFlip(false);
-
     }
   }
 

@@ -10,7 +10,7 @@ import Input from '../components/Input';
 const CreateDeckPage = () => {
 
     const {user, logout, isLoading, getDecks} = useAuthStore();
-    const {deck, createDeck, generateDeck, generatedDeck} = useFlashcardStore();
+    const {deck, createDeck, generateDeck, generatedDeck, resetGeneratedDeck} = useFlashcardStore();
 
 
     const [aiInput, setAiInput] = useState('')
@@ -22,6 +22,7 @@ const CreateDeckPage = () => {
     const handleLogOut = async(e) => {
       e.preventDefault();
       try {
+        resetGeneratedDeck();
         await logout();
         navigate('/login');
       } catch (error) {
@@ -50,6 +51,7 @@ const CreateDeckPage = () => {
       //e.preventDefault();
       try {
         await createDeck(topic, cards);
+        resetGeneratedDeck();
         navigate('/my-decks');
       } catch (error) {
         console.log(error)
@@ -59,6 +61,8 @@ const CreateDeckPage = () => {
     const handleOpenAi = async(e) => {
       e.preventDefault()
       try {
+        const newTopic = aiInput
+        setTopic(newTopic);
         await generateDeck(aiInput);
       } catch (error) {
         console.log(error);
@@ -72,7 +76,6 @@ const CreateDeckPage = () => {
     useEffect(() => {
       if(generatedDeck){
         setCards(generatedDeck);
-        setTopic(aiInput);
       }
     },[generatedDeck])
 
@@ -129,6 +132,7 @@ const CreateDeckPage = () => {
               <div className='max-w-md w-full h-18 border-2 my-3 flex items-center rounded-2xl'>
                 <input 
                 placeholder='Topic'
+                value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 className='h-12 ml-10 w-full'
                 />
