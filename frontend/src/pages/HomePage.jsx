@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Input from '../components/Input';
-import { ArrowBigRightDash, ArrowLeft, ArrowRight, LogIn, Menu, Undo2, X } from 'lucide-react'
+import { ArrowBigRightDash, ArrowLeft, ArrowRight, Loader, LogIn, Menu, Undo2, X } from 'lucide-react'
 import { useAuthStore } from '../store/authStore.js';
 import { useFlashcardStore } from '../store/flashcardStore.js';
 import Sidebar from '../components/Sidebar.jsx';
@@ -16,7 +16,10 @@ const HomePage = () => {
   const {isLoading, error} = useAuthStore();
 
   const [topic, setTopic] = useState('Create your deku');
-  const [currDeck, setCurrDeck] = useState([{front: 'Enter A tccopic or Textbook name and chapter below', back: 'Enter A topic or Textbook name and chapter below'}, {front: 'hi', back: 'bye'}]);
+  const [currDeck, setCurrDeck] = useState([
+    {front: 'Enter A topic or Textbook name and chapter below', back: 'Try it!'},
+    {front: 'Go ahead', back: 'Give it a try!'}
+  ]);
   const [flip, setFlip] = useState(false);
   const [count, setCount] = useState(0);
   const [showInput, setShowinput] = useState(true)
@@ -81,6 +84,8 @@ const HomePage = () => {
   useEffect(() => {
     if(generatedDeck){
       setCurrDeck(generatedDeck)
+      setCount(0);
+      setFlip(false);
     }
   },[generatedDeck])
 
@@ -118,17 +123,16 @@ const HomePage = () => {
                   </div>
                   <button className='border-2 h-10 rounded-2xl p-3 items-center justify-center flex ml-3 hover:cursor-pointer hover:bg-blue-600/40'
                 onClick={HandleOpenAi}
-                >Generate Deck</button>
+                >
+                {!isLoading ? 'Generate Deck' : <Loader className='w-6 h-6 animate-spin' />}
+                </button>
                 </div>
                 <Input 
                 icon={ArrowBigRightDash}
                 placeholder={'Input'}
                 onChange={(e) => setInput(e.target.value)}
                 />
-                <p className='text-sm'>Generations should take about 20-45 seconds</p>
-                {/* <button className='border-2 h-7 rounded-2xl p-3 items-center justify-center flex ml-3 hover:cursor-pointer hover:bg-blue-600/40'
-                onClick={HandleOpenAi}
-                >Generate Deck</button> */}
+                <p className='text-sm'>* Generations should take about 20-45 seconds *</p>
             </div>
             <p className='text-sm font-bold max-w-80'>Enter text above in format such like 'Genki textbook chapter 5 vocabulary' or 'Basketball terminology'</p>
         </div>

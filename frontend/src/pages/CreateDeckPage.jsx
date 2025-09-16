@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import Sidebar from '../components/Sidebar';
-import { Minus, Plus, Save, Trash2 } from 'lucide-react';
+import { ArrowBigRightDash, ArrowLeftFromLine, Loader, Minus, Plus, Save, Trash2 } from 'lucide-react';
 import { useFlashcardStore } from '../store/flashcardStore';
+import Input from '../components/Input';
 
 const CreateDeckPage = () => {
 
-
     const {user, logout, isLoading, getDecks} = useAuthStore();
-    const {deck, createDeck} = useFlashcardStore();
+    const {deck, createDeck, generateDeck, generatedDeck} = useFlashcardStore();
 
+
+    const [aiInput, setAiInput] = useState('')
     const [sideBar, setSideBar] = useState(false);
     const [topic, setTopic] = useState('');
     const [cards, setCards] = useState([{front: '', back: ''}]);
@@ -54,6 +56,26 @@ const CreateDeckPage = () => {
       }
     }
 
+    const handleOpenAi = async(e) => {
+      e.preventDefault()
+      try {
+        await generateDeck(aiInput);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    
+    // useEffect(() => {
+    //   generatedDeck = null;
+    // }, [])
+
+    useEffect(() => {
+      if(generatedDeck){
+        setCards(generatedDeck);
+        setTopic(aiInput);
+      }
+    },[generatedDeck])
+
   return (
     <div className='flex flex-col min-h-screen'>
         <div className='sticky top-0 bg-[#1c1d22]'>
@@ -76,7 +98,7 @@ const CreateDeckPage = () => {
                 <Sidebar />
             </div>
               <div className='flex items-center flex-col w-full'>
-              <div className='flex my-[3%] font-bold text-3xl items-center justify-between border-2 max-w-md w-full p-3 sticky top-[10%] bg-[#1c1d22] rounded-2xl'>
+              <div className='flex my-[1.5%] font-bold text-3xl items-center justify-between border-2 max-w-md w-full p-3 sticky top-[10%] bg-[#1c1d22] rounded-2xl'>
                 <h1 className=''>
                   Create Deck
                 </h1>  
@@ -89,7 +111,22 @@ const CreateDeckPage = () => {
                  onClick={handleAddCard}
                  />
               </div>
-              <div className='max-w-md w-full h-18 border-2 my-5 flex items-center rounded-2xl'>
+
+              <h1 className='mb-[1.5%]'>Generate a Deck</h1>
+
+              <div className='flex justify-center items-center'>
+                <Input 
+                icon={ArrowBigRightDash}
+                placeholder={'Input'}
+                onChange={(e) => setAiInput(e.target.value)}
+                />
+                <button className='flex ml-5 border-2 rounded-xl size-12 items-center justify-center hover:bg-blue-600/40 hover:cursor-pointer'
+                onClick={handleOpenAi}
+                >
+                {!isLoading ? <ArrowLeftFromLine /> : <Loader className='w-6 h-6 animate-spin' />}
+                </button>
+              </div>
+              <div className='max-w-md w-full h-18 border-2 my-3 flex items-center rounded-2xl'>
                 <input 
                 placeholder='Topic'
                 onChange={(e) => setTopic(e.target.value)}
