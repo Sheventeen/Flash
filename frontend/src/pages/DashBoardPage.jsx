@@ -84,7 +84,7 @@ const DashBoardPage = () => {
             className='max-w-md max-h-80 w-full mt-5 bg-[#00688f]/50 backdrop-filter backdrop-blur-xl 
                        rounded-md shadow-xl overflow-auto  items-center flex flex-1 justify-center'>
               <p className='break-words whitespace-normal text-md w-full p-5 text-center'>
-                アドが好き
+                Start Studying
               </p>
             </motion.div>
             <div className='flex max-w-md w-full gap-16 justify-center pt-3 items-center mt-5 border-b pb-4 border-gray-400'>

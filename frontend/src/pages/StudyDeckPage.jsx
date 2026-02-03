@@ -118,7 +118,7 @@ const StudyDeckPage = () => {
             <h1 className='p-6'>
               Are you sure you want to delete this deck? You will not be able to reverse this action.
             </h1>
-            <div className='flex items-end justify-around mb-6 border-2 h-full w-full '>
+            <div className='flex items-end justify-around mb-6 h-full w-full '>
               <button className='border-2 rounded-2xl flex h-16 w-30 items-center justify-center' onClick={() => setShowDelete(prev => !prev)}>
                 KEEP
               </button>
@@ -129,7 +129,7 @@ const StudyDeckPage = () => {
           </div>
         </div>
         :
-        <div className='md:border-2 w-full md:border-blue-700 flex-col flex items-center '>
+        <div className='w-full flex-col flex items-center '>
           <div className='flex p-5 text-4xl font-bold justify-center'>
               <h1>{deck?.topic}</h1>
           </div>
