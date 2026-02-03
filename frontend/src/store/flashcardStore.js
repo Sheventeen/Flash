@@ -33,6 +33,7 @@ export const useFlashcardStore = create((set) => ({
             useAuthStore.setState({user: response.data.user});
             set({decks: response.data.decks});
         } catch (error) {
+            useAuthStore.setState({isLoading: false, error: null});
             set({error:error.response.data.message || 'createDeck', isLoading:false,})
             throw error;
         }
@@ -45,6 +46,7 @@ export const useFlashcardStore = create((set) => ({
             set({deck: response.data.chosenDeck});
             useAuthStore.setState({isLoading: false});
         } catch (error) {
+            useAuthStore.setState({isLoading: false, error: null});
             set({error:error.response.data.message || 'viewDeck', isLoading:false,})
             throw error;
         }
@@ -56,6 +58,7 @@ export const useFlashcardStore = create((set) => ({
             useAuthStore.setState({message: response.data.message, isLoading: false, user:response.data.user});
             set({deck: response.data.user.deck})
         } catch (error) {
+            useAuthStore.setState({isLoading: false, error: null});
             set({error:error.response.data.message || 'editDeck', isLoading:false,})
             throw error;
         }
@@ -67,6 +70,7 @@ export const useFlashcardStore = create((set) => ({
             useAuthStore.setState({message: response.data.message, isLoading: false, user:response.data.user});
             set({deck: null})
         } catch (error) {
+            useAuthStore.setState({isLoading: false, error: null});
             set({error:error.response.data.message || 'deleteDeck', isLoading:false,})
             throw error;
         }
@@ -78,6 +82,7 @@ export const useFlashcardStore = create((set) => ({
             useAuthStore.setState({isLoading: false});
             set({generatedDeck: response.data.text, topic: input})
         } catch (error) {
+            useAuthStore.setState({isLoading: false, error: null});
             set({error:error.response.data.message || 'generateDeck', isLoading:false,})
             throw error;
         }
