@@ -15,7 +15,7 @@ const HomePage = () => {
   const {generateDeck, generatedDeck} = useFlashcardStore();
   const {isLoading, error} = useAuthStore();
 
-  const [topic, setTopic] = useState('Create your deku');
+  const [topic, setTopic] = useState('Generate a Deck');
   const [currDeck, setCurrDeck] = useState([
     {front: 'Enter A topic or Textbook name and chapter below', back: 'Try it!'},
     {front: 'Go ahead', back: 'Give it a try!'}
@@ -40,14 +40,6 @@ const HomePage = () => {
       navigate('signup');
     } catch (error) {
       console.log(error)
-    }
-  }
-  const handleHelp = (e) => {
-    e.preventDefault();
-    try {
-      navigate('/help');
-    } catch (error) {
-      console.log(error);
     }
   }
 
@@ -96,8 +88,6 @@ const HomePage = () => {
             onClick={handleLogin}>Login</p>
         <p className='p-1 border-2 border-gray-100 m-2 rounded-xl text-center font-sans hover:bg-blue-600/40 hover:cursor-pointer'
             onClick={handleSignUp} >Signup!</p>
-        <p className='p-1 border-2 border-gray-100 m-2 mr-5 rounded-xl text-center font-sans hover:bg-blue-600/40 hover:cursor-pointer' 
-            onClick={handleHelp}>Help</p>
         </div>
 
         <div className='flex justify-center'>
